@@ -3,8 +3,9 @@ import torch.nn as nn
 from torchvision.datasets import CIFAR10
 from torchvision import transforms
 from torch.utils.data import DataLoader, random_split
-import torch.nn.functional as F
+from torch.functional import F
 from torch import optim
+# from models.leNet5 import LeNet5
 
 # transformation for the dataset
 train_transform = transforms.Compose([
@@ -118,12 +119,12 @@ for epoch in range(N_EPOCHS):
         outputs = model(inputs)
         loss = criterion(outputs, labels)
         val_loss += loss.item()
-    print('Epoch: {} \tTrain Loss: {:.6f} \tVal Loss: {:.6f}'.format(
+    print('Epoch: {} \tTrain Loss: {:.3f} \tVal Loss: {:.3f}'.format(
         epoch, train_loss/len(trainloader), val_loss/len(valloader))
     )
 
 # testing
-num_correct = 0
+num_correct = 0.0
 for x_test_batch, y_test_batch in testloader:
     model.eval()
     x_test_batch = x_test_batch.to(device)
